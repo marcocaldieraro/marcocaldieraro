@@ -1,0 +1,56 @@
+MODULE MainModule
+    CONST jointtarget jHome1 := [[-7.39997,-2.46468,4.35066,-1.82476,87.1362,92.4645],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST jointtarget j1 := [[-103.35,526.85,702.07],[0.00864218,-0.0773797,0.996934,0.0077753],[1,-1,1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST jointtarget prendere_offs := [[-147.41,324.20,97.92],[0.475483,-0.421921,0.549306,-0.542367],[1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget prendere := [[-49.43,361.94,93.54],[0.401069,-0.37715,0.59901,-0.581454],[1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget p1 := [[-42.00,374.64,217.04],[0.409124,-0.33221,0.584355,-0.617076],[1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget p2 := [[-34.03,361.94,334.79],[0.372585,-0.330044,0.619732,-0.606781],[1,-1,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget erogazione_offs := [[330.60,72.94,310.25],[0.432999,-0.474135,0.523735,-0.55983],[0,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    const robtarget erogazione := [[463.78,80.36,324.89],[0.409324,-0.463499,0.541004,-0.570033],[0,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget p3 := [[354.23,-67.68,340.79],[0.383473,-0.301194,0.603921,-0.630484],[-1,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget deposito_offs := [[354.23,-67.68,340.79],[0.383473,-0.301194,0.603921,-0.630484],[-1,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget deposito := [[531.06,-136.35,103.16],[0.39659,-0.402384,0.548947,-0.616004],[-1,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget uscita_deposito := [[527.96,-135.04,98.41],[0.388514,-0.412274,0.561832,-0.602854],[-1,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget p4 := [[424.13,-93.10,109.25],[0.42062,-0.387851,0.619062,-0.53797],[-1,-2,1,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    CONST robtarget p5 := [[354.23,-67.68,340.79],[0.383473,-0.301194,0.603921,-0.630484],[-1,-2,0,0],[9E+09,9E+09,9E+09,9E+09,9E+09,9E+09]];
+    PROC main()
+    APERTURA_PINZA ;
+    MoveAbsJ jHome1 \NoEOffs, v1000, z50, tool0;
+    WaitDI ABB_Scalable_IO_0_DI9,1;
+    MoveJ j1, v7000, z50, tool0;
+    MoveJ prendere_offs, v7000, z50, tool0;
+    MoveL prendere, v1000, z0, tool0;
+    WaitTime 1;
+    CHIUSURA_PINZA ;
+    WaitTime 1;
+    MoveL p1, v1000, z0, tool0;
+    MoveL p2, v7000, z50, tool0;
+    MoveL erogazione_offs, v7000, z50, tool0;
+    MoveL erogazione, v500, z0, tool0;
+    WaitTime 16;
+    MoveL erogazione_offs, v7000, z0, tool0;
+    MoveL p3, v7000, z50, tool0;
+    MoveL deposito_offs, v7000, z50, tool0;
+    MoveL deposito, v1000, z0, tool0;
+    WaitTime 1;
+    APERTURA_PINZA ;
+    WaitTime 1;
+    MoveL uscita_deposito, v1000, z0, tool0;
+    MoveL p4, v1000, z0, tool0;
+    MoveL p5, v7000, z50, tool0;
+    ENDPROC
+    
+    PROC APERTURA_PINZA()
+        Reset doChiusuraPinza;
+        WaitTime 1;
+        Set doAperturaPinza;
+        WaitTime 1;
+    ENDPROC
+    
+    PROC CHIUSURA_PINZA()
+        Reset doAperturaPinza;
+        WaitTime 1;
+        Set doChiusuraPinza;
+        WaitTime 1;
+    ENDPROC
+ENDMODULE
